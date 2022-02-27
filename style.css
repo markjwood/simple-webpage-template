@@ -1,0 +1,215 @@
+/* Reset */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+html {
+	font-size: 10px;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+dl,
+dd,
+figure {
+	margin: 0;
+}
+
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+
+button,
+input[type='submit'],
+.btn {
+	cursor: pointer;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
+body {
+	line-height: 1.5;
+}
+
+/* custom props */
+:root {
+	--ff-content: 'Roboto', sans-serif;
+	--ff-display: 'Roboto Slab', serif;
+	--ff-mono: 'Roboto Mono', monospace;
+
+	/* colors */
+	--hue: 212; /* blue */
+
+	--clr-grey-9: hsl(var(--hue) 20% 20%); /* blackish */
+	--clr-grey-8: hsl(var(--hue) 20% 45%);
+	--clr-grey-7: hsl(var(--hue) 20% 60%);
+	--clr-grey-6: hsl(var(--hue) 20% 70%);
+	--clr-grey-5: hsl(var(--hue) 20% 80%);
+	--clr-grey-4: hsl(var(--hue) 20% 87%);
+	--clr-grey-3: hsl(var(--hue) 20% 91%);
+	--clr-grey-2: hsl(var(--hue) 20% 95%); /* whitish */
+	--clr-grey-1: hsl(var(--hue) 20% 98%); /* barely off-white */
+
+	/*
+	 default background & foreground colors
+	 for easy light & dark mode switching
+	*/
+	--clr-primary-fg: var(--clr-grey-9);
+	--clr-primary-bg: var(--clr-grey-1);
+	--clr-high-contrast-fg: #000;
+	--clr-high-contrast-bg: #fff;
+}
+
+/* general styles */
+body {
+	font-family: var(--ff-content);
+	color: var(--clr-primary-fg);
+	background-color: var(--clr-primary-bg);
+	font-size: 1.8rem; /* 18px */
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+
+header,
+footer {
+	display: flex;
+	gap: 1em;
+	background-color: var(--clr-grey-7);
+	color: var(--clr-grey-2);
+	padding: 1rem 2em;
+}
+header {
+	justify-content: space-between;
+}
+footer {
+	justify-content: center;
+	line-height: 1.1;
+	font-size: 1.5rem;
+	font-style: italic;
+
+	/* push to bottom - requires display: flex; flex-direction: column; & min-height: 100vh on <body> */
+	margin-top: auto;
+}
+header nav {
+	display: flex;
+	gap: 2rem;
+	flex-wrap: nowrap;
+	align-items: center;
+}
+header nav > a {
+	color: inherit;
+	text-decoration-color: transparent;
+	transition: 250ms;
+}
+header nav > a:hover {
+	color: hsl(var(--hue) 100% var(--l));
+	text-decoration-color: hsl(var(--hue) 100% var(--l));
+}
+
+footer,
+h1,
+h2,
+h3 {
+	font-family: var(--ff-display);
+}
+
+footer a {
+	color: inherit;
+}
+footer a:hover {
+	color: hsl(var(--hue) 100% 20%);
+}
+
+main {
+	margin: 4rem 0;
+}
+
+article > * {
+	--content-spacer: 1em;
+}
+article > h2 + p {
+	--content-spacer: 0.25em;
+}
+
+a {
+	color: hsl(var(--hue) 100% var(--l, 60%));
+	transition: color 250ms;
+}
+a:hover {
+	--l: 25%;
+}
+
+figure {
+	padding: 0.125em;
+	background-color: var(--clr-high-contrast-bg);
+	color: var(--clr-high-contrast-fg);
+	font-size: 90%;
+	text-align: center;
+	border-radius: 3px;
+	border: 1px solid var(--clr-grey-4);
+}
+figcaption {
+	margin-top: 0.125em;
+	font-style: italic;
+}
+
+code {
+	font-family: var(--ff-mono);
+	font-style: normal;
+	font-weight: 500;
+	background-color: var(--clr-grey-3);
+	color: var(--clr-grey-9);
+	padding-inline: 0.25em;
+}
+.tag::before {
+	content: '<';
+}
+.tag::after {
+	content: '>';
+}
+
+.container {
+	width: min(45em, 100% - 3rem);
+	margin: 0 auto;
+}
+
+.space-content > * + * {
+	margin-top: var(--content-spacer, 2em);
+}
+
+/* for those who prefer a dark color scheme */
+@media (prefers-color-scheme: dark) {
+	:root {
+		--clr-primary-bg: var(--clr-grey-9);
+		--clr-primary-fg: var(--clr-grey-2);
+		--clr-high-contrast-bg: #000;
+		--clr-high-contrast-fg: #fff;
+	}
+	header,
+	footer {
+		background-color: var(--clr-grey-8);
+	}
+}
+
+/* collapse the header on small screens */
+@media screen and (max-width: 45em) {
+	header {
+		flex-direction: column;
+		gap: 0.5em;
+		align-items: center;
+	}
+}
